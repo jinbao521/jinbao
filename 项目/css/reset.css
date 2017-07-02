@@ -1,0 +1,64 @@
+html,
+body,
+div,
+span,
+p,
+h1,
+h2,
+h3,
+b,
+i,
+a,
+em,
+form,
+img,
+ul,
+li,
+dl,
+dt，article,
+section,
+aside,
+figure,
+figcaption,
+header,
+footer,
+nav {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+    font-style: normal;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+article,
+section,
+aside,
+figure,
+figcaption,
+header,
+footer,
+nav{
+    display: block;
+}
+li,
+ol {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+}
+img {
+    display: inline-block;
+}
+.clear:after{
+	content:"";
+	display: block;
+	clear: both;
+}
+.clear{
+	zoom:1;
+}
+input{
+	outline: none;
+}

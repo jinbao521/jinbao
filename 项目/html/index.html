@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0" />
+	<link rel="stylesheet" href="../css/css.css">
+	<link rel="stylesheet" href="../css/svg/font.css" />
+
+	<script src="../js/jquery-1.6.2.min.js"></script>
+	<script type="text/javascript" src='../js/zepto.js'></script>
+	<script type="text/javascript" src='../js/zepto.fx.js'></script>
+	<script type="text/javascript" src='../js/zTouch.min.js'></script>
+	<script src="../js/swiper.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/swiper.min.css" />
+	<script src=""></script>
+</head>
+<body>
+		<div class="jb_head">
+			<i class="icon-list2"></i>
+			<input type="text" value="天猫超市一站" class="sousuo">
+			<img src="../image/jb_x21.jpg" alt="">
+			<i class="icon-cart"></i>
+			<i>北京</i>
+			<i class="icon-heart"></i>
+		</div>
+		<!--轮播-->
+		<div class="banner">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide"><img src="../image/lunbo_1.jpg" class="img1" /></div>
+					<div class="swiper-slide"><img src="../image/lunbo_2.jpg" class="img1" /></div>
+					<div class="swiper-slide"><img src="../image/lunbo_3.jpg" class="img1" /></div>
+					<div class="swiper-slide"><img src="../image/lunbo_4.jpg" class="img1" /></div>
+				</div>
+				<div class="swiper-pagination"></div>
+			</div>
+		</div>
+
+		<div class="jb_list">
+			<ul>
+				
+					<li><img src="../image/1.jpg"><p>母婴玩具</p></li>
+					<li><img src="../image/2.jpg"><p>休闲零食</p></li>
+					<li><img src="../image/3.jpg"><p>酒水乳品</p></li>
+					<li><img src="../image/4.jpg"><p>粮油副食</p></li>
+					<li><img src="../image/5.jpg"><p>洗护美妆</p></li>
+				
+				
+					<li><img src="../image/6.jpg"><p>家居用品</p></li>
+					<li><img src="../image/7.jpg"><p>纸品家清</p></li>
+					<li><img src="../image/8.jpg"><p>家用电器</p></li>
+					<li><img src="../image/9.jpg"><p>进口食品</p></li>
+					<li><img src="../image/10.jpg"><p>出游季</p></li>
+				
+			</ul>
+		</div>
+
+		<div class="jb_hd">
+			<div class="jb_left">
+				<div class="jb_left_top">
+					<p>
+						<img src="../image/jb_x7.jpg"><br />
+						<span>12点场剩余时间</span>
+					</p>
+				</div>
+
+				<div class="jb_left_bottom">
+					<img src="../image/jb_x8.jpg">
+				</div>
+				
+			</div>
+			<div class="jb_right">
+				<div class="jb_right_top">
+					<div class="jb_right_top_left">
+						<h1>生鲜区</h1>
+						<p>买二免一<br />
+						   爆款直降</p>
+					</div>
+					<div class="jb_right_top_right">
+						<img src="../image/jb_x20.jpg">
+					</div>
+				</div>
+				<div class="jb_right_bottom">
+					<div>
+						<span>好货</span>
+						<p>超市热卖...</p>
+						<img src="../image/jb_x10.jpg" alt="">
+					</div>
+					<div>
+						<span>量贩装</span>
+						<p>仅2.2元/盒</p>
+						<img src="../image/jb_x11.jpg" alt="">
+					</div>
+					<div>
+						<span>9元馆</span>
+						<p>抢优品</p>
+						<img src="../image/jb_x12.jpg" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="jb_img">
+			<img src="../image/jb_1.jpg">
+		</div>
+
+		<!--底部-->
+		<div class="jb_footer" id="jb_footer">
+			<a href="javascript:;"><img src="../image/jb_x30.jpg" alt=""><p>首页</p></a>
+			<a href="javascript:;"><img src="../image/jb_x31.jpg" alt=""><p>物流</p></a>
+			<a href="javascript:;"><img src="../image/jb_x32.jpg" alt=""><p>购物车</p></a>
+			<a href="wodedingdan.html"><img src="../image/jb_x33.jpg" alt=""><p>我的淘宝</p></a>
+			<a href="javascript:;"><img src="../image/jb_x34.jpg" alt=""><p>更多</p></a>
+		</div>
+</body>
+
+</html>
+<script>
+	$(function(){
+		var swiper = new Swiper(".swiper-container",{
+			autoplay: 1000,
+			loop: true,
+			speed: 500,
+			pagination: '.swiper-pagination',
+			paginationClickable: true,
+			autoplayDisableOnInteraction: false
+		})
+			document.documentElement.style.fontSize = document.documentElement.clientWidth / 320 * 20 + 'px';
+			window.onresize = function() {
+				document.documentElement.style.fontSize = document.documentElement.clientWidth / 320 * 20 + 'px';
+		
+		};
+		
+		$('#jb_footer').children().eq(2).bind('touchend',function(){
+			window.location.href="shoppingcart.html";
+		})
+		
+		$('.jb_footer').children().eq(3).bind('touchend',function(){
+			window.location.href="login.html";
+		})
+
+		var arr=["jiushui","jingxuan","jiaqing","muying","liangyou","jiayong","shengxian","meirong","lingshi"];
+
+		for(var i=0;i<$('.jb_list').children().children('li').length;i++){
+			$('.jb_list').children().children('li').eq(i).bind('touchend',function(){
+				window.location.href='list.html';
+				
+				sessionStorage.setItem('index',arr[$(this).index()]);
+
+			})
+		}
+
+		//搜索
+		$(".sousuo").click(function(){
+			window.location.href="search.html";
+		})
+
+	})
+		
+
+
+</script>

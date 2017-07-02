@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+		<link rel="stylesheet" href="../css/xiugai.css">
+		<script src="../js/jquery-1.6.2.min.js"></script>
+	</head>
+	<body>
+		<div class="jb_header">
+			<i><img src="../image/12.jpg"></i>
+			<p>管理中心</p>
+		</div>
+		
+		
+		<div class="jb_dibu">
+			<p>修改地址</p>
+		</div>	
+	</body>
+</html>
+		<script>
+			$(function(){			
+				document.documentElement.style.fontSize = document.documentElement.clientWidth / 320 * 20 + 'px';
+				window.onresize = function() {
+					document.documentElement.style.fontSize = document.documentElement.clientWidth / 320 * 20 + 'px';
+				};
+				$('.jb_header').bind('touchend',function(){
+					
+					window.location.href="set.html"
+				})
+				
+
+				$(".jb_dibu").click(function(){
+					window.location.href="xiugai_addr.html";
+				})
+			})
+
+			var arr=localStorage.getItem('arr');
+			var arr2=arr.split('-');
+			$("body").append('<div class="jb_main"><p>收货人:<a>'+arr2[0]+'</a></p><p>收货地址:<a>'+arr2[2]+arr2[3]+arr2[4]+'</a></p><p>电话:<a>'+arr2[1]+'</a></p></div>')
+			console.log(arr2);
+
+
+
+		</script>

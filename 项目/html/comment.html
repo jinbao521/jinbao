@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>追加评论</title>
+		<link rel="stylesheet" type="text/css" href="../css/comment.css"/>
+		<script src="../js/jquery-1.6.2.min.js"></script>
+		<script>
+			window.onload = function() {
+				document.documentElement.style.fontSize = document.documentElement.clientWidth / 320 * 20 + 'px';
+				window.onresize = function() {
+					document.documentElement.style.fontSize = document.documentElement.clientWidth / 320 * 20 + 'px';
+				};
+			};
+		</script>
+	</head>
+	<body>
+		<div class="comment">
+			<div class="comment_header">
+				成交时间 04.01
+			</div>
+			<div class="comment_content">
+				<div class="comment_cont">
+					<div class="comment_cont_l fl">
+						<img src="../img/zlg_3.png"/>
+					</div>
+					<div class="comment_cont_r fl">
+						<p>山西移动 手机 话费充值 10元<br/>快充值充24小时自动充值快速<br/>到账</p>
+					</div>
+				</div>
+				<div class="comment_cont2">[04.04]</div>
+				<input class="int" type="text" placeholder="宝贝好用吗？可以追加评价哦~"/>
+				<div class="pingjia"><span>是否匿名：</span><input type="radio" name="xx"/><p>公开</p><input type="radio" name="xx" /><p>匿名</p></div>
+			</div>
+			<footer>
+				<div class="footer_input" id="footer_input">
+					提交评论
+				</div>
+			</footer>
+		</div>	
+		<script>
+			$(function(){
+				$('.footer_input').bind('touchend',function(){
+					// window.location.href="supervise.html";
+				})
+					$(".footer_input").click(function(){
+							var int=$(".int").val();
+							var id=localStorage.getItem("c");
+							var arr=localStorage.getItem('arr');
+							var arr2=arr.split('-');
+							if(int==""){
+								alert("评论不能为空")
+							}else{
+								$.ajax({
+									type:"post",
+									url: "http://47.92.37.168/supermarket/data/evaluate.php",
+									data: {
+											'evaluate':2,
+											'commodity_id':id,   //arr[0] 19 arr[1] 15
+											'user_name':arr2[0],   //收货人
+											'evaluate_info':int,
+											'user_phone':arr2[1]
+									},
+									dataType:'jsonp',        
+									jsonp:'callback',
+									success:function(data){
+										console.log(data);
+										alert("评论成功")
+									}
+								})
+							}
+					})
+						
+			})
+		</script>
+	</body>
+</html>

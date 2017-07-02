@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/xiugai_addr.css"/>
+		
+		<script src="../js/jquery-1.6.2.min.js"></script>
+	</head>
+	<body>
+		<div class="address_add">
+			<header>
+				<a href="xiugai.html">
+				<i><</i>
+				<p>添加新地址</p></a>
+				<span id="keep">保存</span>
+			</header>
+			<content>
+				<div class="cont1">
+					<p>收货人</p>
+					<input type="text" id='per'/>
+				</div>
+				<div class="cont1">
+					<p>联系电话</p>
+					<input type="number" id='phone'/>
+				</div>
+				<div class="cont1">
+					<p>所在地区</p>
+					<input type="text" id='address' />
+					<span>请选择 ></span>
+				</div>
+				<div class="cont1">
+					<p>街道</p>
+					<input type="text" name="" id='street' value="" />
+					<span>请选择 ></span>
+				</div>
+				<textarea placeholder="详细地址" id='xx_address'></textarea>
+				<div class="cont1">
+					<p >设为默认地址</p>
+					<span><input type="checkbox" /></span>
+				</div>
+			</content>
+		</div>
+	</body>
+</html>
+<script>
+		
+
+	$("#keep").click(function(){
+		var per=$("#per").val();
+		var phone=$("#phone").val();
+		var address=$("#address").val()
+		var street=$("#street").val();
+		var xx_address=$("#xx_address").val();
+		var arr=per+'-'+phone+'-'+address+'-'+street+'-'+xx_address;
+		localStorage.setItem('arr',arr)
+		var arr=localStorage.getItem('arr')
+		if($("#phone").val()=="" || $("#per").val()=="" ||$("#address").val()=="" ||$("#xx_address").val()=="" || $("#street").val()==""){
+			alert("请填写完整内容")
+		}else{
+			$.ajax({
+					type:"post",
+					url:"http://47.92.37.168/supermarket/data/user_update_addr.php",
+					data:{
+						user_addr:arr,
+						user_phone:localStorage.getItem("user")
+					},
+					dataType:'jsonp',        
+					jsonp:'callback',
+					jsonpCallback:'success_JsonpCallback',
+					success:function(data){
+						console.log(data)
+						var arr=sessionStorage.getItem('arr')
+						window.location.href="xiugai.html";
+					}
+				})
+		}
+	})
+
+
+		
+			
+</script>

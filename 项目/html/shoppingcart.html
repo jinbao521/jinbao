@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/shoppingcart.css"/>
+		<script src='../js/jquery-1.10.1.js'></script>
+		<title>shopping cart</title>
+	</head>
+	<body>
+		<header class="clear">
+			<span class="left" id="sc_fan">‹</span><p class="left">购物车</p>
+		</header>
+		<div class="GWC_shangpin">
+			<div class="GWC_list clear" id="nei">
+				<!-- <div style="width:3rem;height:2rem;background:red;" class="show">
+					
+				</div> -->
+				<!-- <div class="GWC_top clear">
+					<div class="left">
+						<p class="checkbox"></p>
+						<span><img src="../img/shop.jpg"/></span>
+						<span class="GWC_shopname">耐克官方旗舰店</span>
+					</div>
+					<div class="right">
+						<span>领券</span>
+						<span class="gang">|</span>
+						<span>编辑</span>
+					</div>
+				</div>
+				<div class="GWC_con">
+					<div class="left">
+						<p class="checkbox"></p>
+					</div>
+						<img src="../img/yulan.jpg" />
+					<div class="GWC_jieshao right">
+						<p>树脂吊坠项链musa【极光】原创设计不规则多面几何体长款毛衣</p>
+						<p>颜色分类:绿色磨砂树脂吊坠</p>
+						<p>￥89.00 <span>x1</span></p>
+					</div>
+				</div>
+				<div class="GWC_con">
+					<div class="left">
+						<p class="checkbox"></p>
+					</div>
+						<img src="../img/yulan.jpg" />
+					<div class="GWC_jieshao right">
+						<p>树脂吊坠项链musa【极光】原创设计不规则多面几何体长款毛衣</p>
+						<p>颜色分类:绿色磨砂树脂吊坠</p>
+						<p>￥89.00 <span>x1</span></p>
+					</div>
+				</div> -->
+			</div>
+			<div class="GWC_list clear">
+				<!-- <div class="GWC_top clear">
+					<div class="left">
+						<p class="checkbox"></p>
+						<span><img src="../img/shop.jpg"/></span>
+						<span class="GWC_shopname">耐克官方旗舰店</span>
+					</div>
+					<div class="right">
+						<span>领券</span>
+						<span class="gang">|</span>
+						<span>编辑</span>
+					</div>
+				</div>
+				<div class="GWC_con">
+					<div class="left">
+						<p class="checkbox"></p>
+					</div>
+						<img src="../img/yulan.jpg" />
+					<div class="GWC_jieshao right">
+						<p>树脂吊坠项链musa【极光】原创设计不规则多面几何体长款毛衣</p>
+						<p>颜色分类:绿色磨砂树脂吊坠</p>
+						<p>￥89.00 <span>x1</span></p>
+					</div>
+				</div>
+			</div> -->
+		</div>
+		<footer class="clear">
+			<div class="GWC_all left">
+				<p class="all_checkbox"></p>
+				全选
+			</div>
+			<div class="GWC_jiesuan right" id="ss_js">
+				结算(0)
+			</div>
+			<div class="GWC_heji right">
+				<p class="jb_heji">合计：<span>￥0.00</span></p>
+				<p>不含邮费</p>
+			</div>
+		</footer>
+	</body>
+</html>
+<script type="text/javascript">
+	$(function(){
+		
+		
+		$('#sc_fan').bind('touchend',function(){
+			window.location.href="index.html";
+		})
+					var user=localStorage.getItem("user");
+					// var id=sessionStorage.getItem("id");
+					$.ajax({
+						type:"post",
+						url:"http://47.92.37.168/supermarket/data/get_commodity_car.php",
+						data:{
+							"user_phone": user
+						},
+						dataType:'jsonp',        
+						jsonp:'callback',
+						jsonpCallback:'success_JsonpCallback',
+						success:function(data){
+							localStorage.setItem('count',data.length);
+							for(var i=0;i<data.length;i++){
+								var idtwo=data[i].commodity_id;
+								//console.log(idtwo);
+								var count=data[i].count;
+								//console.log(count)
+								// sessionStorage.setItem("count",count)
+								// console.log(data[i].count)
+								xinxi(idtwo,count);
+								sessionStorage.setItem("uid",data[i].commodity_id);
+							}
+						}
+					})
+
+				function xinxi(cc,bb){
+					$.ajax({
+							type:"post",
+							url:"http://47.92.37.168/supermarket/data/get_commodity_info.php",
+							data:{
+								"id":cc
+							},
+							dataType:'jsonp',        
+							jsonp:'callback',
+							success:function(data){
+								$("#nei").append('<div class="Bigbox"><div class="GWC_top clear"><div class="left" style="margin-left:2rem;"><span><img src="../img/shop.jpg"/></span><span class="GWC_shopname">耐克官方旗舰店</span></div><div class="right"><span class="bj" style="float:left">编辑</span><span class="gang">|</span><span class="sc" id='+data.id+'>删除</span><span class="gang">|</span><span class="wc" id='+data.id+'>完成</span></div></div><div class="GWC_con"><div class="left"><p class="checkbox" id='+data.id+'></p></div><img src="http://47.92.37.168/supermarket/img/'+data.img+'"><div class="GWC_jieshao right"><p>'+data.name+'</p><p>颜色分类:'+data.evaluate+'</p><p class="jiage"><a class="ss_jiage">'+data.price+'</a><span class="jb_btn"><button style="width:1.5rem;float:left;margin-right:1rem" class="jian">-</button><a style="float:left" class="ss_shuliang">'+bb+'</a><button style="width:1.5rem;float:left;margin-left:1rem" class="jia">+</button></span></p></div></div></div>')
+									$(".jb_btn").children("button").css("display","none");
+							},
+							complete:function(){
+								for(var i=0;i<$('.GWC_con').length;i++){
+									$('.GWC_con').eq(i).attr('price',Number($(".GWC_con").eq(i).find('.ss_jiage').text())*Number($(".GWC_con").eq(i).find('.ss_shuliang').text()))
+								}
+							}
+							
+						})
+					}
+
+
+
+
+			//编辑
+			$('body').delegate('.bj','click',function(){
+				$(this).css("display","none");
+				$(this).parent().parent().siblings().children(1).children(2).children(0).children().css({"display":"block"})
+			})
+			
+			//减
+			$(".GWC_shangpin").delegate(".jian", "click", function() {	
+					var n = $(this).next().text();
+						n--
+					
+					if(n <= 0) {
+						n = 1;
+						$(this).next().text(n);
+					} else {
+						$(this).next().text(n);
+					}
+					sessionStorage.setItem("n",n);
+					var price=sessionStorage.getItem("price")
+					
+
+			})
+			//加
+			$(".GWC_shangpin").delegate(".jia", "click", function() {	
+					var n = $(this).prev().text();
+						n++
+						// console.log(n)
+						$(this).prev().text(n);
+						sessionStorage.setItem("n",n);
+			})
+
+			//删除
+			$('body').delegate('.sc','click',function(){
+				var Bigbox2=$(this).parent().parent().parent();
+				// console.log(Bigbox2)
+				var uid=$(this).attr("id");
+				// console.log(uid)
+				$.ajax({
+						type:"post",
+						url: "http://47.92.37.168/supermarket/data/my_commodity_delete_car.php",
+						data:{
+							"user_phone":user,
+							"commodity_id":uid
+						},
+						dataType:'jsonp',        
+						jsonp:'callback',
+						success:function(data){
+							console.log(data);
+							// $(".Bigbox").remove(".GWC_con");
+							 Bigbox2.css("display","none");
+							// location.reload(false)
+						}
+				})
+			})
+			//完成
+			$(document).on('click','.wc',function(){
+				// console.log($(this).attr("id"));
+				var uid=$(this).attr("id");
+				$(".jb_btn").children("button").css("display","none");
+				$(".bj").css("display","block")
+				var user=localStorage.getItem("user")
+				var count=sessionStorage.getItem("n");
+						$.ajax({
+							type:"post",
+							url: "http://47.92.37.168/supermarket/data/my_commodity_update_car.php",
+							data:{
+								"user_phone":user,
+								"commodity_id":uid,
+								"count":count
+							},
+							dataType:'jsonp',        
+							jsonp:'callback',
+							success:function(data){
+								console.log(data);
+							},complete:function(){
+								for(var i=0;i<$('.GWC_con').length;i++){
+									$('.GWC_con').eq(i).attr('price',Number($(".GWC_con").eq(i).find('.ss_jiage').text())*Number($(".GWC_con").eq(i).find('.ss_shuliang').text()))
+								}
+							}
+				})
+			})
+
+
+
+
+
+
+	//商品
+	var num=0;
+	$(document).on("touchend", ".checkbox", function() {
+		if($(this).hasClass("checked")) {
+			var oo=$(this).addClass("checked").parent().parent().attr("price");
+			num-=Number(oo);
+			$(this).removeClass("checked");
+			$(".jb_heji span").text(Number(num.toFixed(2)))
+		} else {
+				$(this).addClass("checked");
+				var xx=$(this).addClass("checked").parent().parent().attr("price");
+				num+=Number(xx);
+				console.log(num);
+				$(".jb_heji span").text(Number(num.toFixed(2)));
+			// if(xx){
+			// 	xx.arrt('price');
+			// 	console.log(xx)
+			// }
+		}
+		for(var i = 0; i < $(".checkbox").length; i++){
+			if($(".checkbox").eq(i).hasClass("checked") == false) {
+				$(".all_checkbox").removeClass("checked");
+				return;
+			}else {
+				$(".all_checkbox").addClass("checked");
+
+			}
+		}
+
+	})
+
+	//全选
+	$(document).on("touchend", ".all_checkbox", function() {
+		
+		if($(this).hasClass("checked")) {
+			$(this).removeClass("checked")
+			for(var i = 0; i < $(".checkbox").length; i++) {
+				$(".checkbox").eq(i).removeClass("checked");
+			}
+
+				for(var i=0;i<$('.GWC_con').length;i++){
+					num-=Number($('.GWC_con').eq(i).attr('price'));
+				}
+				$(".jb_heji span").text(Number(num.toFixed(2)))
+		} else {
+			$(this).addClass("checked");
+			num=0;
+			for(var i = 0; i<$(".GWC_con").length; i++) {
+				$(".GWC_con").find(".checkbox").addClass("checked");
+				for(var i=0;i<$('.GWC_con').length;i++){
+					num+=Number($('.GWC_con').eq(i).attr('price'));
+				}
+				$(".jb_heji span").text(Number(num.toFixed(2)))
+			}
+		}
+	});
+
+	//结算
+	$("#ss_js").click(function(){
+		var arr=localStorage.getItem("arr");
+		// if(){
+
+		// }
+		if(arr==""){
+			alert("请添加收货地址");
+			window.location.href="xiugai_addr.html";
+		}else{
+				var arr=localStorage.getItem('arr');
+				var arr2=arr.split('-');
+				console.log(arr);
+		for(var i=0;i<$(".checkbox").length;i++){
+			if($(".checkbox").eq(i).hasClass("checked")){
+				var id=$(".checkbox").eq(i).attr("id");
+				// console.log(id);
+				var user=localStorage.getItem("user");
+				// console.log(user);
+				var count=$(".checkbox").eq(i).parent().siblings().children().eq(2).children().eq(1).children().eq(1).text();
+				
+
+				// console.log(count)
+				$.ajax({
+						type:"post",
+						url: "http://47.92.37.168/supermarket/data/my_commodity_order.php",
+						data:{
+							'commodity_id': id,
+							'user_phone': user,
+							'count': count,
+							'user_name': arr2[0],
+							'user_addr': arr2[2]+arr2[3]+arr2[4],
+							'consignee_phone': arr2[1]
+						},
+						dataType:'jsonp',        
+						jsonp:'callback',
+						success:function(data){
+							 console.log(data);
+							window.location.href="success.html";
+							// $("this").css("display","none")
+						}
+				})
+			}else{
+				alert("请选中要结算的物品")
+			}
+
+
+		 }
+		}
+	})
+
+
+
+	})
+
+</script>

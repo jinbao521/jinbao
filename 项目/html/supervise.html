@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+	    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>订单管理</title>
+		<link rel="stylesheet" type="text/css" href="../css/supervise.css"/>
+		<script src="../js/jquery-1.6.2.min.js"></script>
+	</head>
+	<body>
+		<script>
+			window.onload = function() {
+				document.documentElement.style.fontSize = document.documentElement.clientWidth / 320 * 20 + 'px';
+				window.onresize = function() {
+					document.documentElement.style.fontSize = document.documentElement.clientWidth / 320 * 20 + 'px';
+				};
+			};
+		</script>
+		<div class="supervise">
+			<div class="supervise_header">
+				<b class="b">&lt;</b>
+				<p>订单管理</p>
+			</div>
+			<div class="supervise_nav">
+				<li>全部</li>
+				<li>待付款 </li>
+				<li>待发货</li>
+				<li>待收货</li>
+				<li>待评价</li>
+			</div>
+			<div class="supervise_cont">
+				
+			</div>
+			
+
+			
+			
+			
+			
+			
+<!-- 			<div class="supervise_cont">
+				<div class="cont_header">
+					<div class="cont_header_left fl">
+						<img src="../img/zlg_1.png"/>
+						<span class="fl">帝皇家饰</span>
+						<i class="fl">&gt;</i>
+					</div>
+					<div class="cont_header_right fr">
+						交易成功
+					</div>
+				</div>
+				<div class="cont_center">
+					<div class="cont_cent">
+						<img class="fl" src="../img/zlg_2.png"/>
+						<div class="ding fl">定做/定制壁炉芯壁挂式石材 装<br/>饰仿真火LED取暖风机 欧式电壁.</div>
+						<div class="price fr">￥595.00<br/><del>￥600.00</del></div>
+						<div class="yan fl">
+							<div class="yan_left fl">颜色分类：702*160**520</div>
+							<div class="yan_right fr">x1</div>
+						</div>
+					</div>
+				</div>
+				<div class="gong">
+					<i>共1件商品</i>
+					<span>合计:￥595.00</span>
+					<p>（含运费￥0.00）</p>
+				</div> -->
+				<!-- <div class="dibu">
+					<div class="dibu_con fr">
+						<button type="text" class="zlg_xg_one">删除订单</button>
+						<button type="text" id="zlg_xg_two">追加评论</button>
+					</div>
+				</div> -->
+			</div>
+		</div>
+		<script>
+			$(function(){
+				var arr=[];
+
+				var user=localStorage.getItem("user");
+				$.ajax({
+							type:"post",
+							url:"http://47.92.37.168/supermarket/data/get_commodity_order.php",
+							data:{
+								'user_phone':user
+							},
+							dataType:'jsonp',        
+							jsonp:'callback',
+							jsonpCallback:'success_JsonpCallback',
+							success:function(data){
+								console.log(data);
+								for(var i=0;i<data.length;i++){
+									var id=data[i].commodity_id;
+									console.log(id)
+									var count=data[i].count;
+									xinxi(id,count)
+									var order_time=data[i].order_time;
+									arr.push(data[i].order_time);
+									
+								}
+								console.log(arr);
+							}
+						})
+
+				
+				function xinxi(id,count){
+					$.ajax({
+							type:"post",
+							url:"http://47.92.37.168/supermarket/data/get_commodity_info.php",
+							data:{
+								"id":id
+							},
+							dataType:'jsonp',        
+							jsonp:'callback',
+							
+							success:function(data){
+								console.log(data);
+								$(".supervise_cont").append('<div class="Bigbox3"><div class="cont_header"><div class="cont_header_left fl"><img src="../img/zlg_1.png"/><span class="fl">耐克官方旗舰店</span><i class="fl">&gt;</i></div><div class="cont_header_right fr">卖家已发货</div></div><div class="cont_center"><div class="cont_cent"><img class="fl" src="http://47.92.37.168/supermarket/img/'+data.img+'"/><div class="ding fl">'+data.name+'</div><div class="price fr">'+data.price+'<br/><del>￥600.00</del></div><div class="yan fl"><div class="yan_left fl">颜色分类：702*160**520</div><div class="yan_right fr">x'+count+'</div></div></div></div><div class="gong"><i>共'+count+'件商品</i><span>合计:￥'+data.price*count+'</span><p>（含运费￥0.00）</p></div><div class="dibu"><div class="dibu_con fr"><button type="text" id='+data.id+' class="sc">删除订单</button><button type="text" id='+data.id+' class="pj">评价</button><button type="text" >确认收货</button></div></div></div>')
+							},
+							
+						})
+					}
+
+
+
+				$('body').delegate('.sc','click',function(){
+				var id=$(this).attr("id");
+				console.log(id);
+				var user=localStorage.getItem("user")
+				//console.log(user);
+				$(this).parents('.Bigbox3').remove();
+				for(var i=0;i<arr.length;i++){
+					console.log(arr[i])
+						$.ajax({
+								type:"post",
+								url:"http://47.92.37.168/supermarket/data/my_commodity_delete_order.php",
+								data:{
+									'order_time':arr[i],
+									'commodity_id':id,		
+									'user_phone':user
+								},
+								dataType:'jsonp',        
+								jsonp:'callback',
+								success:function(data){
+									console.log(data);
+								}
+						})
+					}
+			})
+
+
+					$('body').delegate('.pj','click',function(){
+						var c=$(this).attr('id');
+						localStorage.setItem("c",c);
+						window.location.href="comment.html"
+					})
+
+					$('body').delegate('.wode','click',function(){
+						window.location.href="wodedingdan.html"
+					})
+					$(".b").click(function(){
+						window.location.href="success.html";
+					})
+
+			})
+		</script>
+	</body>
+</html>

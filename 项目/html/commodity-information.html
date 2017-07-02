@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/jquery-1.6.2.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/commodity-information.css"/>
+	</head>
+	<body>
+		<div class="ss_box">
+			<div class="ss_search">
+				<img src="../img/ss_1.gif" class="ss_fhzy">
+				<span class="ss_fhzy">天猫超市</span>
+				<input type="text" class="ss_input_search" placeholder="搜索天猫超市">
+				<div class="ss_sou"></div>
+				<img src="../img/ss_2.gif">
+				<p>分类</p>
+			</div>
+			<div class="ss_basic_fater">
+				<div class="ss_basic">
+						<div class="ss_basic_header">
+							<div><span>基本信息</span></div>
+							<div><span>商品详情</span></div>
+							<div id="pingjia"><!-- <span>评价10</span> --></div>
+					</div>
+		 	</div>
+		 	<br /><br /><br />
+					<div class="ss_basic_two">
+						<!-- <img src="../img/ss_4.gif">
+						<p>【天猫超市】陶华碧老干妈 精制牛肉沫豆鼓 油辣椒/辣酱 210g/瓶</p>
+						<p>￥<span>8.90</span></p>
+						<span>买家优惠</span>
+						<p>满88包邮(20kg内)  月销量 65820件</p>
+						<span>北京</span> -->
+					</div>
+					
+					<div class="ss_basic_three">
+						
+						
+					</div>
+					<div class="jiazai">
+							加载更多
+						</div>
+					</div>
+					
+			</div>
+			
+
+			<div class="ss_footer">
+				<div><img src="../img/ss_5.gif">进店</div>
+				<div><img src="../img/ss_6.gif">收藏</div>
+				<div><p>加入购物车</p><p>仅支持1倍购买</p></div>
+			</div>
+		</div>
+		<script>
+			document.documentElement.style.fontSize = innerWidth/16 + 'px';
+			onresize = function(){
+				document.documentElement.style.fontSize = innerWidth/16 + 'px';
+			};
+			$(function(){
+				
+					for(var i=0;i<$('.ss_basic_header').children().length;i++){
+						$('.ss_basic_header').children().eq(i).click(function(){
+							for(var i=0;i<$('.ss_basic_header').children().length;i++){
+								$('.ss_basic_header').children().eq(i).css("borderTop","0px solid #1189F8");
+								$('.ss_basic_header').children().eq(i).css("color","black");
+							}
+							$(this).css("borderTop","2px solid #1189F8");
+							$(this).css("color","#1189F8");
+						})
+					}
+					
+
+					$('.ss_basic_header').children().eq(2).click(function(){
+						$('.ss_basic_two').css('display','none');
+						$('.ss_basic_three').css('display','block');
+					})
+					
+					$('.ss_basic_header').children().eq(0).click(function(){
+						$('.ss_basic_two').css('display','block');
+						$('.ss_basic_three').css('display','none');
+					})
+					
+					$('.ss_fhzy').bind('touchend',function(){
+						window.location.href="index.html";
+					})
+					
+					$('.ss_footer').bind('touchend',function(){
+						// window.location.href="shoppingcart.html";
+						var user=localStorage.getItem("user");
+						var id=sessionStorage.getItem("id");
+						console.log(id,user);
+						$.ajax({
+							type:"post",
+							url:"http://47.92.37.168/supermarket/data/my_commodity_car.php",
+							data:{
+								"user_phone":user,
+								"commodity_id":id,
+								"count":1 
+							},
+							dataType:'jsonp',        
+							jsonp:'callback',
+							jsonpCallback:'success_JsonpCallback',
+							success:function(data){
+								console.log(data);
+								if(data.msg=="success"){
+									alert("添加成功");
+									window.location.href="shoppingcart.html";
+								}else{
+									alert(data.reason);
+								}
+							}
+						})
+
+
+			
+						
+	})
+
+
+
+					function pageName() {
+						var strUrl = location.href;//地址
+						var arrUrl = strUrl.split("=");
+						var strPage = arrUrl[1];//当前传过来的id
+						return strPage
+					}
+
+					
+
+
+					//商品信息
+					$.ajax({
+						type:"post",
+						url:"http://47.92.37.168/supermarket/data/get_commodity_info.php",
+						data:{
+							id:pageName()
+						},
+						dataType:'jsonp',        
+						jsonp:'callback',
+						jsonpCallback:'success_JsonpCallback',
+						success:function(data){
+							// console.log(data);
+							// console.log(data.id);
+							sessionStorage.setItem("id",data.id);
+							if(data.privilege=="no"){
+								data.privilege="卖家不优惠";
+							}else{
+								data.privilege="卖家优惠";
+							}
+							$(".ss_basic_two").append('<img src="http://47.92.37.168/supermarket/img/'+data.img+'"><p>'+data.name+'</p><p>￥<span>'+data.price+'</span></p><span>'+data.privilege+'</span><p>满88包邮('+data.weight+'内)  月销量 '+data.count+'件</p><span>北京</span><br/><p class="jb_tian">'+data.arrival_time+'天内到达</p>')
+						//评价
+						pingjia();
+						}
+					})
+
+
+					//评价
+					function pingjia(){
+						$.ajax({
+							type:"post",
+							url: "http://47.92.37.168/supermarket/data/get_commodity_evluate.php",
+							data:{
+								commodity_id:pageName()
+							},
+							dataType:'jsonp',        
+							jsonp:'callback',
+							jsonpCallback:'success_JsonpCallback',
+							success:function(data){
+								console.log(data);
+								if(data==""){
+									$("#pingjia").append('<span>评价'+0+'</span>')
+								}else{
+									$("#pingjia").append('<span>评价'+data.length+'</span>')
+								}
+							}
+						})
+
+							
+
+							
+							
+
+						
+
+
+						
+
+						
+
+					}
+
+
+
+		
+					
+					//评价开始
+					var start=0;
+
+					$("body").delegate(".jiazai","click",function(){
+							start+=4;
+							jiazai()
+					})
+
+					$("#pingjia").click(function(){
+							$(".jiazai").css("display","block")
+							$.ajax({
+								type:"post",
+								url: "http://47.92.37.168/supermarket/data/get_commodity_evluate_info.php",
+								data:{
+									commodity_id:pageName(),
+									start:start
+								},
+								dataType:'jsonp',        
+								jsonp:'callback',
+								jsonpCallback:'success_JsonpCallback',
+								success:function(data){
+									var arr=data;
+									for(var i=0;i<arr.length;i++){
+										$(".ss_basic_three").append('<div class="ss_evaluate"><p>'+arr[i].user_name+'<img src="../img/ss_7.gif"></p><span>2017-04-08</span><div><p>'+arr[i].evaluate_info+'</p><img src="../img/ss_10.gif"><img src="../img/ss_8.gif">')
+									}
+								}
+						})	
+					})
+
+					function jiazai(){
+						$.ajax({
+								type:"post",
+								url: "http://47.92.37.168/supermarket/data/get_commodity_evluate_info.php",
+								data:{
+									commodity_id:pageName(),
+									start:start
+								},
+								dataType:'jsonp',        
+								jsonp:'callback',
+								jsonpCallback:'success_JsonpCallback',
+								success:function(data){
+									var arr=data;
+									for(var i=0;i<arr.length;i++){
+										$(".ss_basic_three").append('<div class="ss_evaluate"><p>'+arr[i].user_name+'<img src="../img/ss_7.gif"></p><span>2017-04-08</span><div><p>'+arr[i].evaluate_info+'</p><img src="../img/ss_10.gif"><img src="../img/ss_8.gif">')
+									}
+								}
+						})
+					}
+					//评价结束
+					
+
+
+
+				
+			})
+		</script>
+	</body>
+</html>

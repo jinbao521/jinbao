@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,
+			minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/login.css"/>
+		<script src="../js/jquery-1.6.2.min.js"></script>
+	</head>
+	<body>
+		<div class="login">
+			<header>
+				<p>淘宝账户登录</p>
+			</header>
+			<banner>
+				<img src="../img/banner.jpg"/>
+			</banner>
+			<main>
+				<p><span>账户</span><input type="text" placeholder="手机号/邮箱/会员名" class="ss_user"></p>
+				<p><span>登录密码</span><input type="password" placeholder="登录密码" class="ss_pass"></p>
+				<div>
+					<input type="button" value="登 录"/>
+				     <p class="clear" id="zhuce">
+				     	<a href="javascript:;">免费注册</a><a href="javascript:;">忘记密码</a>
+				     </p>
+				</div>
+			</main>
+		</div>
+		<script>
+			$(function(){
+				var user=sessionStorage.getItem("user");
+
+				$('#zhuce').click(function( ){
+					window.location.href='register.html';
+				})
+					$('.ss_user').val(user);
+					
+					
+				$('.login').children('main').children('div').children().eq(0).bind('touchend',function(){
+
+					var ss_user=$('.ss_user').val();
+					var ss_pass=$('.ss_pass').val();
+					if(ss_pass==''||ss_user==''){
+						alert('用户名或密码不能为空!');
+					}else{
+						$.ajax({
+							type:"post",
+							url:"http://47.92.37.168/supermarket/data/login.php",
+							data:{
+								'user_phone':ss_user,
+								'user_pass_word':ss_pass
+							},
+							dataType:'jsonp',        
+							jsonp:'callback',
+							jsonpCallback:'success_JsonpCallback',
+							success:function(data){
+								if(data.msg=="success"){
+										console.log(data.info.user_phone)
+										alert("登录成功");
+										window.location.href="index.html";
+										localStorage.setItem("user",data.info.user_phone)
+										localStorage.setItem("arr","");
+									}else{
+										alert(data.reason);
+									}
+							}
+						});
+						
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

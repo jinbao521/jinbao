@@ -1,0 +1,75 @@
+html{
+	font-size: 3.125vw;
+}
+*{padding: 0;margin: 0;border: 0;}
+a{text-decoration: none;}
+.address_add{
+	width: 100%;
+	height: 54rem;
+	background: #eee;
+}
+.address_add header{
+	width: 100%;
+	height: 4rem;
+	display: flex;
+	line-height: 4rem;
+}
+.address_add header a{display: flex;flex: 1;}
+.address_add header a{color: #000;}
+.address_add header i{
+	font-size: 2rem;
+	flex: 0.5;
+}
+.address_add header p{
+	flex: 5;
+	font-size: 1.4rem;
+}
+.address_add header span{
+	flex: 1;
+	font-size: 1.2rem;
+	color: #fd5a1f;
+	position: absolute;
+	right: 1rem;
+}
+.address_add content{
+	width: 100%;
+	height: auto;
+}
+.cont1{
+	height: 4rem;
+	margin-bottom: 0.1rem;
+	background: #fff;
+	display: flex;
+	line-height: 4rem;
+}
+.cont1 p{
+	flex:3;
+	font-size: 1.2rem;
+	text-indent: 1rem;
+	color: #000;
+} 
+.cont1 input{
+	flex:6;
+	font-size: 1.2rem;
+	text-align: left;
+}
+.cont1 span{
+	flex:5;
+	font-size:1.2rem;
+	text-indent: 15%;
+	color: #a2a2a2;
+}
+.cont1 span input{
+	float: right;
+	width: 1.7rem;
+	height: 1.7rem;
+	margin: 1.2rem;
+}
+content textarea{
+	width: 100%;
+	height: 8rem;
+	resize: none;
+	font-size: 1.2rem;
+	text-indent: 1rem;
+	margin-bottom: 0.6rem;
+}

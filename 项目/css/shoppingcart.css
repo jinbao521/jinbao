@@ -1,0 +1,147 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 3.125vw;
+  font-family: "微软雅黑", "黑体";
+  text-decoration: none;
+}
+.clear {
+    display: block;
+    zoom: 1;
+}
+.clear:after {
+    content: "";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    clear: both;
+}
+.left{
+    float: left;
+    display: inline;
+}
+.right{
+    float: right;
+    display: inline;
+}
+header{
+	line-height: 3.8rem;
+	background: #fff;
+}
+header span{
+	width: 3.8rem;
+	text-align: center;
+	font-size: 3rem;
+}
+header p{
+	text-indent: 8rem;
+	font-size: 1.7rem;
+}
+body{
+	background: #eee;
+}
+.GWC_shangpin{
+	background: red;
+	height: auto;
+	width: 100%;
+	margin-bottom: 5rem;
+}
+footer{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	height: 4rem;
+	background: #fff;
+	width: 100%;
+}
+.GWC_all{
+	line-height: 4rem;
+	font-size: 1.5rem;
+}
+.GWC_jiesuan{
+	width: 8.8rem;
+	line-height: 4rem;
+	color: #fff;
+	text-align: center;
+	font-size: 1.4rem;
+	background: #ff5500;
+}
+.GWC_heji p{
+	line-height: 2rem;
+	font-size: 1.2rem;
+	padding-right: 1rem;
+}
+.GWC_heji p span{
+	color: #ff5500;
+}
+.GWC_list .GWC_top{
+	line-height: 3.6rem;
+	background: #fff;
+	font-size: 1.2rem;
+	margin-top: 1rem;
+	padding-right: 1rem;
+	padding-top: 0.2rem;
+}
+.all_checkbox,.checkbox1{
+	width: 1.7rem;
+	height: 1.7rem;
+	margin: 0.9rem 1rem 0 1rem;
+	background: url(../img/p40.jpg) center no-repeat;
+	background-size: 1.7rem 1.7rem;
+	float: left;
+}
+.all_checkbox,.checkbox{
+	width: 1.7rem;
+	height: 1.7rem;
+	margin: 0.9rem 1rem 0 1rem;
+	background: url(../img/p40.jpg) center no-repeat;
+	background-size: 1.7rem 1.7rem;
+	float: left;
+}
+.checked{
+	width: 1.7rem;
+	height: 1.7rem;
+	margin: 0.9rem 1rem 0 1rem;
+	background: url(../img/p39.jpg) center no-repeat;
+	background-size: 1.7rem 1.7rem;
+	float: left;
+}
+.GWC_list{
+	background: #fff;
+	border-bottom: 1px solid #e6e6e6;
+	height: auto;
+}
+.gang{
+	color: #f2f2f2;
+}
+.GWC_con{
+background: #f5f5f5;
+margin-top: 0.5rem;
+}
+.GWC_con div:nth-child(1){
+	display: inline-block;
+	padding-top: 3.5rem;
+}
+.GWC_con img{
+	display: inline-block;
+	width: 8.3rem;
+	padding: 0.4rem;
+}
+.GWC_jieshao p{
+	width: 18rem;
+	font-size: 1.2rem;
+	padding-top: 0.3rem;
+}
+.GWC_jieshao p:nth-child(2){
+	color: #999;
+	margin-top: 0.4rem;
+}
+.GWC_jieshao p:nth-child(3){
+	color: #ff6600;
+}
+.GWC_jieshao p:nth-child(3) span{
+	float: right; 
+	color: #000;
+	margin-right: 1rem;
+}

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/reset.css" />
+		<link rel="stylesheet" href="../css/search.css" />
+		<link rel="stylesheet" type="text/css" href="../css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../css/svg/font.css" />
+		<script src="../js/jquery-1.6.2.min.js"></script>
+	</head>
+	<body>
+		<div class="list">
+			<header class="clear" id="ss_clear">
+				<p class="index"><i class="icon-home2"></i><a href="javascript:;">超市</a></p>
+				<input class="input" type="text" placeholder="宝贝："/>
+				<i class="icon-search"></i>
+			</header>
+			<div class="lisi">
+				<p>搜索历史</p>
+				<!-- <span>水</span><span>咖啡</span><span>可乐</span> -->
+			</div>
+			<div class="box">
+				<a href="javascript:;">综合排序</a>
+				<a href="javascript:;" class="xiaoliang">销量排序</a>
+				<a href="javascript:;" class="jiage">价格排序</a>
+				<a href="javascript:;">筛选</a>
+			</div>
+			<main class="clear" id="clear">
+				
+
+			</main>
+		</div>
+		<script>
+		//搜索记录
+		var ls=localStorage.getItem("jb");
+		if(ls){
+			var arr=ls.split("-");
+			for(var i=0;i<arr.length;i++){
+				$(".lisi").append('<span>'+arr[i]+'</span>');
+			}
+		}	
+
+		$('#ss_clear').children().eq(2).click(function(){
+			
+			var value=$(".input").val();
+
+			sessionStorage.setItem("jb",value);
+
+			if(ls){
+				if(ls.indexOf(value)==-1){
+					ls+="-"+value;
+					localStorage.setItem('jb',ls);
+				}else{
+					ls=ls;
+				}
+			}else{
+				localStorage.setItem('jb',value)
+			}
+
+
+
+			if(value!=""){
+				$(".box").css("display","none")
+			}
+			$("#clear").empty();
+
+			if($(".input").val()==""){
+						alert('请输入您想要的产品');
+						$(".box").css("display","none");
+			}else{
+				var arr=[]
+				$.ajax({
+					type: "get",
+					url: "http://47.92.37.168/supermarket/data/getcommditybykw.php",
+					data: {
+						'kw':$('#ss_clear').children().eq(1).val()
+					},
+					dataType: 'jsonp',
+					jsonp: 'callback',
+					jsonpCallback: 'success_JsonpCallback',
+					success: function(data){
+						arr=data
+							if(data==""){
+								alert("你搜索的商品不存在");
+								$(".box").css("display","none")
+							}else{
+								for(var i = 0; i < data.length; i++) {
+								$("#clear").append('<figure class="one"><a href="commodity-information.html?id='+data[i].id+'"><img src="http://47.92.37.168/supermarket/img/'+data[i].img+'"/></a><figcaption><p><a href="javascript:;">'+data[i].name+'</a></p><div class="clear"><p><span>月销'+data[i].count+'件</span><br><span>￥'+data[i].price+'</span></p><a href="javascript:;"><img src="../img/img4.jpg"/></a></div></figcaption></figure>');
+								}
+								$(".box").css("display","block")
+
+								var i=0;
+									$(".xiaoliang").click(function(){
+										// alert(1)
+										console.log(arr);
+										i++;
+										if(i%2==0){
+											arr.sort(function(a,b){
+												var a=Number(a.count);
+												var b=Number(b.count);
+												return b-a;
+											})
+											a()
+										}else{
+											arr.sort(function(a,b){
+												var a=Number(a.count);
+												var b=Number(b.count);
+												return a-b;
+											})
+											a()
+										}
+
+									})
+								var j=0;
+								$(".jiage").click(function(){
+										// alert(1)
+										console.log(arr);
+										i++;
+										if(i%2==0){
+											arr.sort(function(a,b){
+												var a=Number(a.price);
+												var b=Number(b.price);
+												return b-a;
+											})
+											a()
+										}else{
+											arr.sort(function(a,b){
+												var a=Number(a.price);
+												var b=Number(b.price);
+												return a-b;
+											})
+											a()
+										}
+
+									})
+							}
+							
+					}
+			})
+				
+				function a(){
+					$("#clear").html("")
+					for(var i = 0; i < arr.length; i++) {
+								$("#clear").append('<figure class="one"><a href="commodity-information.html?id='+arr[i].id+'"><img src="http://47.92.37.168/supermarket/img/'+arr[i].img+'"/></a><figcaption><p><a href="javascript:;">'+arr[i].name+'</a></p><div class="clear"><p><span>月销'+arr[i].count+'件</span><br><span>￥'+arr[i].price+'</span></p><a href="javascript:;"><img src="../img/img4.jpg"/></a></div></figcaption></figure>');
+								}
+				}
+
+
+
+			}
+		})
+
+			$(".index").click(function(){
+				window.location.href='index.html';
+			})
+
+			
+		</script>
+	</body>
+</html>

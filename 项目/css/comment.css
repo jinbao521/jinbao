@@ -1,0 +1,34 @@
+*{ padding:0; margin:0; }
+html{font-size: 20px;}
+ul,ol,dl,li{ list-style:none;}
+a{ text-decoration:none;}
+a img{ border:0;vertical-align:top;}
+i,em{ font-style:normal;}
+input,textarea{ outline:none;resize:none;}
+.fl{ float:left;display:inline;}
+.fr{ float:right;display:inline;}
+.por{ position:relative;}
+.clearFix:after{ display:block; content:''; clear:both;}
+.clearFix{ zoom:1;}
+.comment{width: 100%;height:auto;background: #fff;}
+.comment_header{width:10rem;height: 1.3rem;background: #f2f2f2;border-radius:0.5rem;font-size: 0.6rem;
+				color: #d1d1d1;text-align: center;line-height: 1.3rem;margin: 0.5rem auto 1.175rem;}
+.comment_content{width: 14.25rem;height:auto;margin: 0 auto;}
+.comment_cont{width: 14.25rem;height: 3.9rem;margin: 0 auto 1rem;}				
+.comment_cont_l{width: 3.775rem;height: 3.775rem;border:2px solid #ccc;margin-right: 0.6rem;}
+.comment_cont_l img{width: 3.775rem;}
+.comment_cont_r{width: 9.35rem;height: 3.775rem;}
+.comment_cont_r p{font-size:0.65rem;color: #484b4e;}
+.comment_cont2{width: 14.15rem;height: 2.3rem;background: #faeea8; border: 2px solid #efcc36;margin: 0 auto 1rem;
+			text-indent: 1rem;line-height: 2.3rem;border-radius: 0.25rem;color: #b6b5aa;font-size: 0.6rem;}
+.int{width: 14.25rem;height:1.95rem;background: #e8e8e8;margin-bottom: 1rem;
+	text-indent: 0.825rem;line-height: 1.95rem;border-radius: 0.25rem;color: #b6b5aa;font-size: 0.675rem;border: none;}			
+.pingjia{width:14.25rem;height:0.825rem;margin: 0 auto;font-size: 0.7rem;}
+.pingjia span{float: left; color:#8a8a8a;}
+.pingjia input{margin: 0.2rem 0.625rem 0rem;float: left;width: 0.6rem;height: 0.6rem;}
+.pingjia p{float: left;display: inline-block;}
+footer{height: 2.65rem;width: 100%;border-top: 2px solid #a6a6a6;position: fixed;bottom: 0;left: 0;}
+.footer_input{
+	width: 4.95rem;height: 1.2rem;border: 1px solid #fe6d25;color: #fe6d25;line-height: 1.2rem;
+	text-align: center;font-size: 0.7rem;margin: 0.625rem auto;border-radius: 1rem;
+}

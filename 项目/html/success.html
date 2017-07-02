@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/success.css"/>
+		<script src="../js/jquery-1.6.2.min.js"></script>
+		<title>交易成功</title>
+	</head>
+	<body>
+		<div class="sc_header">
+			<div class="clear">
+				<span id="ss_fh">‹</span>
+				<p>订单详情</p>	
+			</div>
+			<img src="../image/success.jpg" />
+		</div>
+		<div class="sc_shouhuo clear">
+			<img src="../image/weizhi.png" />
+			<div class="cc">
+				
+			</div>
+		</div>
+
+		<div class="jb_ck">
+			<p><a href="supervise.html">查看订单</a></p>
+		</div>
+		
+		<script>
+			$(function(){
+				$('#ss_fh').bind('touchend',function(){
+					window.location.href="shoppingcart.html"
+				})
+				var arr=localStorage.getItem('arr');
+				var arr2=arr.split('-');
+					console.log(arr2[0])
+				var count=localStorage.getItem("count");
+					console.log(count)
+				var uid=localStorage.getItem("uid");
+					console.log(uid)
+				$(".cc").append('<p>收货人:<span>'+arr2[0]+'</span></p><p>收货地址:<span>'+arr2[2]+arr2[3]+arr2[4]+'</span></p><p>电话:<span>'+arr2[1]+'</span></p>')
+
+				
+
+
+			})
+		</script>
+	</body>
+</html>
